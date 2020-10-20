@@ -4,7 +4,7 @@ class GuardRobot
       if car.defective_car?
         car.update(status: :defected)
 
-        NotificationRobot.call(car: car)
+        NotificationRobot.defect_notify(car: car)
       end
     end
   end

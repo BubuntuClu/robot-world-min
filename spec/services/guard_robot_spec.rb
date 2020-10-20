@@ -10,7 +10,7 @@ RSpec.describe GuardRobot do
     let!(:cars) { create_list(:car, 3, :complete_status, stock: FactoryStock.first) }
 
     it 'does not call slack notifcation' do
-      expect(NotificationRobot).to_not receive(:call).with(car: Car)
+      expect(NotificationRobot).to_not receive(:defect_notify).with(car: Car)
       described_class.search_for_defected_cars
     end
 
@@ -24,7 +24,7 @@ RSpec.describe GuardRobot do
     let!(:cars) { create_list(:car, 3, :defected_car, stock: FactoryStock.first) }
 
     it 'does not call slack notifcation' do
-      expect(NotificationRobot).to receive(:call).with(car: Car).exactly(3).times
+      expect(NotificationRobot).to receive(:defect_notify).with(car: Car).exactly(3).times
       described_class.search_for_defected_cars
     end
 

@@ -11,6 +11,6 @@ RSpec.describe NotificationRobot do
 
   it 'calls slack notifcation' do
     expect(SlackNotificationWorker).to receive(:perform_async).with(String)
-    described_class.call(car: car)
+    described_class.defect_notify(car: car)
   end
 end
