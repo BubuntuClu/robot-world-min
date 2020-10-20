@@ -9,6 +9,7 @@ class Car < ApplicationRecord
   scope :basic,      -> { where(status: :basic) }
   scope :electronic, -> { where(status: :electronic) }
   scope :final,      -> { where(status: :final) }
+  scope :complete,   -> { where(status: :complete) }
 
   after_save :create_frame, if: :new_car
 
