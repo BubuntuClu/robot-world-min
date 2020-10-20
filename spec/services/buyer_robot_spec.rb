@@ -7,16 +7,23 @@ RSpec.describe BuyerRobot do
     end
   end
 
+  let(:action) do
+    described_class.call(model_name: model.name)
+    described_class.call(model_name: model.name)
+    described_class.call(model_name: model.name)
+  end
+
   context 'amount of cars in store srock is enough' do
     let(:model) { create(:model)}
-    let!(:cars) { create_list(:car, 4, :complete, model: model) }
+    let!(:cars) { create_list(:car, 4, :complete_status, model: model) }
 
     it 'makes orders' do
-      expect { described_class.call(amount: 3, model_name: model.name) }.to change(Order, :count).by(3)
+      expect { action }.to change(Order, :count).by(3)
     end
 
     it 'marks cars as sold' do
-      described_class.call(amount: 3, model_name: model.name)
+      action
+
       cars = Car.all
 
       expect(cars[0].status).to eq 'complete'
@@ -28,18 +35,19 @@ RSpec.describe BuyerRobot do
 
   context 'amount of cars in store srock is not enough' do
     let(:model) { create(:model)}
-    let!(:cars) { create_list(:car, 1, :complete, model: model) }
+    let!(:car) { create(:car, :complete_status, model: model) }
 
     it 'makes orders' do
-      expect { described_class.call(amount: 3, model_name: model.name) }.to change(Order, :count).by(1)
+      expect { action }.to change(Order, :count).by(1)
     end
 
     it 'makes reports' do
-      expect { described_class.call(amount: 3, model_name: model.name) }.to change(Report, :count).by(2)
+      expect { action }.to change(Report, :count).by(2)
     end
 
     it 'marks cars as sold' do
-      described_class.call(amount: 3, model_name: model.name)
+      action
+
       cars = Car.all
 
       expect(cars[0].status).to eq 'sold'

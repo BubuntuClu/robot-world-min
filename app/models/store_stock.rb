@@ -2,6 +2,6 @@ class StoreStock < Stock
   default_scope { where(kind: 'store_stock') }
 
   def available_cars_per_model(model:)
-    Car.complete.joins(:model).where(models: { name: model} ).order(:id)
+    Car.complete.joins(:model).where(models: { name: model} ).order(:id).limit(1).first
   end
 end

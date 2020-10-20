@@ -38,7 +38,7 @@ RSpec.describe Car, type: :model do
     end
 
     context 'car without defects' do
-      let(:car) { create(:car, :complete) }
+      let(:car) { create(:car, :complete_status) }
 
       it 'has no defects' do
         expect(car.defective_car?).to be false
@@ -50,7 +50,7 @@ RSpec.describe Car, type: :model do
     end
 
     context 'car with defects' do
-      let(:car) { create(:car, :complete, seat: false) }
+      let(:car) { create(:car, :complete_status, seat: false) }
 
       it 'has defects' do
         expect(car.defective_car?).to be true
