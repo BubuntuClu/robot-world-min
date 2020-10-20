@@ -12,8 +12,8 @@ RSpec.describe Car, type: :model do
   context 'methods' do
     let(:model) { create(:model) }
     let!(:stocks) do
-      %w[factory store].each do |stock|
-        Stock.create(name: stock)
+      %w[factory_stock store_stock].each do |stock|
+        Stock.create(name: stock, kind: stock.to_sym)
       end
     end
 

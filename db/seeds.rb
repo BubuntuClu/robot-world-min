@@ -6,6 +6,6 @@ Stock.destroy_all
   Model.create(name: model_name, price: rand(100...5000), cost: rand(100...5000))
 end
 
-%w[factory store].each do |stock|
-  Stock.create(name: stock)
+%w[factory_stock store_stock].each do |stock|
+  Stock.create(name: stock, kind: stock.to_sym)
 end

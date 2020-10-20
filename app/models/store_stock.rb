@@ -1,3 +1,3 @@
 class StoreStock < Stock
-  default_scope { where(name: 'store') }
+  default_scope { where(kind: 'store_stock') }
 end
