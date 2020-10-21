@@ -29,61 +29,126 @@ RSpec.describe RobotBuilder do
     end
   end
 
-  context '#set_up_basic' do
-    let!(:car) { create(:car) }
+  describe 'high success rate' do
+    let(:robot_builder) { RobotBuilder.new(success_rate: 100) }
 
-    it 'sets up basic constractions' do
-      described_class.set_up_basic
-      car.reload
+    context '#set_up_basic' do
+      let!(:car) { create(:car) }
 
-      expect(car.wheels).to eq true
-      expect(car.engine).to eq true
-      expect(car.chassis).to eq true
+      it 'sets up basic constractions' do
+        robot_builder.set_up_basic
+        car.reload
+
+        expect(car.wheels).to eq true
+        expect(car.engine).to eq true
+        expect(car.chassis).to eq true
+      end
+
+      it 'changes status to electronic' do
+        robot_builder.set_up_basic
+        car.reload
+
+        expect(car.status).to eq 'electronic'
+      end
     end
 
-    it 'changes status to electronic' do
-      described_class.set_up_basic
-      car.reload
+    context '#set_up_electronic' do
+      let!(:car) { create(:car, :electronic) }
+      it 'sets up electronic constractions' do
 
-      expect(car.status).to eq 'electronic'
+        robot_builder.set_up_electronic
+        car.reload
+
+        expect(car.lasser).to eq true
+        expect(car.computer).to eq true
+      end
+
+      it 'changes status to final' do
+        robot_builder.set_up_electronic
+        car.reload
+
+        expect(car.status).to eq 'final'
+      end
+    end
+
+    context '#set_up_electronic' do
+      let!(:car) { create(:car, :final) }
+
+      it 'sets up final constractions' do
+
+        robot_builder.set_up_final
+        car.reload
+
+        expect(car.seat).to eq true
+      end
+
+      it 'changes status to final' do
+        robot_builder.set_up_final
+        car.reload
+
+        expect(car.status).to eq 'complete'
+      end
     end
   end
 
-  context '#set_up_electronic' do
-    let!(:car) { create(:car, :electronic) }
-    it 'sets up electronic constractions' do
+  describe 'low success rate' do
+    let(:robot_builder) { RobotBuilder.new(success_rate: 0) }
+    context '#set_up_basic' do
+      let!(:car) { create(:car) }
 
-      described_class.set_up_electronic
-      car.reload
+      it 'sets up basic constractions' do
+        robot_builder.set_up_basic
+        car.reload
 
-      expect(car.lasser).to eq true
-      expect(car.computer).to eq true
+        expect(car.wheels).to eq false
+        expect(car.engine).to eq false
+        expect(car.chassis).to eq false
+      end
+
+      it 'changes status to electronic' do
+        robot_builder.set_up_basic
+        car.reload
+
+        expect(car.status).to eq 'electronic'
+      end
     end
 
-    it 'changes status to final' do
-      described_class.set_up_electronic
-      car.reload
+    context '#set_up_electronic' do
+      let!(:car) { create(:car, :electronic) }
+      it 'sets up electronic constractions' do
 
-      expect(car.status).to eq 'final'
+        robot_builder.set_up_electronic
+        car.reload
+
+        expect(car.lasser).to eq false
+        expect(car.computer).to eq false
+      end
+
+      it 'changes status to final' do
+        robot_builder.set_up_electronic
+        car.reload
+
+        expect(car.status).to eq 'final'
+      end
     end
-  end
 
-  context '#set_up_electronic' do
-    let!(:car) { create(:car, :final) }
+    context '#set_up_electronic' do
+      let!(:car) { create(:car, :final) }
 
-    it 'sets up final constractions' do
+      it 'sets up final constractions' do
 
-      described_class.set_up_final
-      car.reload
+        robot_builder.set_up_final
+        car.reload
 
-      expect(car.seat).to eq true
-    end
+        expect(car.seat).to eq false
+      end
 
-    it 'changes status to final' do
-      described_class.set_up_final
-      car.reload
+      it 'changes status to final' do
+        robot_builder.set_up_final
+        car.reload
 
-      expect(car.status).to eq 'complete'
+        expect(car.status).to eq 'complete'
+      end
     end
   end
 end
