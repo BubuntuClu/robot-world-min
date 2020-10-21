@@ -1,6 +1,7 @@
 ## The problem.
 You know the robot buyer knows the car models he is able to buy, we want to optimize the sales, as we have lag between the factory stock and the store stock, it may happen that we don’t have stock at the store stock but we actually have brand new cars ready to be sold in the factory stock. How can we optimize the stock management? (sadly we can’t centralize the stock)
 
+## Options to solve the problem
 1) We can create a reservation model, that will create the reserve of a brand new car in factory stock after store getting a report(order to buy a car, but there is no car of that model at the moment). When the reserved car arrives at the store stock we can notify client that the car has arrived
 
 2) We can sell cars from a factory stock. If store stock has not got enough cars and factory stock has completed cars that are required. We can mark them as sold. And 2 options here
