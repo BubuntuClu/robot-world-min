@@ -17,26 +17,6 @@ RSpec.describe Car, type: :model do
       end
     end
 
-    context 'new car' do
-      it 'should place car in a factory store' do
-        car = Car.create(
-          model_id: model.id,
-          year: Time.now.year,
-        )
-
-        expect(car.stock.name).to eq FactoryStock.first.name
-      end
-
-      it 'should has a basic status' do
-        car = Car.create(
-          model_id: model.id,
-          year: Time.now.year,
-        )
-
-        expect(car.status).to eq 'basic'
-      end
-    end
-
     context 'car without defects' do
       let(:car) { create(:car, :complete_status) }
 

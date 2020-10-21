@@ -3,6 +3,8 @@ class RobotBuilder
     Car.create(
       model_id: model.id,
       year: Time.now.year,
+      status: Car.statuses[:basic],
+      stock_id: FactoryStock.first.id
     )
   end
 
