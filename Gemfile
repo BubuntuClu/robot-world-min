@@ -28,6 +28,8 @@ gem "slack-notifier"
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
 gem 'dotenv-rails'
+gem 'whenever', require: false
+gem 'fatalistic'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

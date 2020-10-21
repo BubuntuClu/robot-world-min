@@ -9,13 +9,30 @@ RSpec.describe RobotBuilder do
     end
   end
 
-  context '#set_up_basic' do
-    it 'sets up basic constractions' do
-      car = Car.create(
-        model_id: model.id,
-        year: Time.now.year,
-      )
+  context '#create_model_car' do
+    it 'creates car' do
+      expect { described_class.create_model_car(model: model) }.to change(Car, :count).by(1)
+    end
 
+    it 'sets status to basic' do
+      described_class.create_model_car(model: model)
+      car = Car.last
+
+      expect(car.status).to eq 'basic'
+    end
+
+    it 'places car to factory stock' do
+      described_class.create_model_car(model: model)
+      car = Car.last
+
+      expect(car.stock.id).to eq FactoryStock.first.id
+    end
+  end
+
+  context '#set_up_basic' do
+    let!(:car) { create(:car) }
+
+    it 'sets up basic constractions' do
       described_class.set_up_basic
       car.reload
 
@@ -25,11 +42,6 @@ RSpec.describe RobotBuilder do
     end
 
     it 'changes status to electronic' do
-      car = Car.create(
-        model_id: model.id,
-        year: Time.now.year,
-      )
-
       described_class.set_up_basic
       car.reload
 

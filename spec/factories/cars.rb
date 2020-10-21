@@ -3,6 +3,7 @@ FactoryBot.define do
     model
     stock
     year { Time.now.year }
+    status { :basic }
   end
 
   trait :electronic_status do
