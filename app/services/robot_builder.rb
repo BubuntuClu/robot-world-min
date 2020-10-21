@@ -6,36 +6,43 @@ class RobotBuilder
     )
   end
 
-  def self.set_up_basic
+  def initialize(success_rate:)
+    @success_rate = success_rate
+  end
+
+  def set_up_basic
     Car.basic.each do |car|
-      #TODO add random with errors
       car.update(
-        wheels: true,
-        engine: true,
-        chassis: true,
+        wheels: operation_successfull?,
+        engine: operation_successfull?,
+        chassis: operation_successfull?,
         status: :electronic
       )
     end
   end
 
-  def self.set_up_electronic
+  def set_up_electronic
     Car.electronic.each do |car|
-      #TODO add random with errors
       car.update(
-        lasser: true,
-        computer: true,
+        lasser: operation_successfull?,
+        computer: operation_successfull?,
         status: :final
       )
     end
   end
 
-  def self.set_up_final
+  def set_up_final
     Car.final.each do |car|
-      #TODO add random with errors
       car.update(
-        seat: true,
+        seat: operation_successfull?,
         status: :complete
       )
     end
+  end
+
+  private
+
+  def operation_successfull?
+    (rand(1...100) + @success_rate) / 100
   end
 end
