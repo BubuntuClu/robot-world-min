@@ -8,7 +8,7 @@ end
 
 desc 'Robot builder makes basic construction and moves cars to electric'
 task robot_builder_set_up_basic_cars: :environment do
-  success_rate = rand(80..100)
+  success_rate = rand(80..100) # here we can user world-wide statistics about cars manufacture
   RobotBuilder.new(success_rate: success_rate).set_up_basic
 end
 
