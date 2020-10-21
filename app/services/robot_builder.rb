@@ -1,4 +1,11 @@
 class RobotBuilder
+  def self.create_model_car(model:)
+    Car.create(
+      model_id: model.id,
+      year: Time.now.year,
+    )
+  end
+
   def self.set_up_basic
     Car.basic.each do |car|
       #TODO add random with errors
@@ -32,4 +39,3 @@ class RobotBuilder
     end
   end
 end
-

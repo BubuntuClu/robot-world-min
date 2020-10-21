@@ -1,4 +1,6 @@
-class Car < ApplicationRecord
+require "active_record/locking/fatalistic"
+
+class Car < ActiveRecord::Base
   belongs_to :model
   belongs_to :stock, optional: true
 
