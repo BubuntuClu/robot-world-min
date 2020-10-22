@@ -8,7 +8,7 @@ You know the robot buyer knows the car models he is able to buy, we want to opti
   a) move them to store stock but dont count them as available, becuse they already sold
   b) move them directly to the client location
 
-
+3) We can add aditional guard robot, that will decrease lag time.
 -----------------------------
 ## Robot World
 It's the year 2020, the developers are part of the past. You are probably the last dev on the earth and you are pretty busy, so you decide the best is the robots can handle all the work instead of you.
